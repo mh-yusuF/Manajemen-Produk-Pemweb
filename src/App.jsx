@@ -4,6 +4,7 @@ import SearchBar from './components/SearchBar.jsx';
 import ProductList from './components/ProductList.jsx';
 import AddProductModal from './components/AddProductModal.jsx';
 import EditProductModal from './components/EditProductModal.jsx';
+import DeleteProductModal from './components/DeleteProductModal.jsx';
 import initialProducts from './data/products.js';
 import './App.css';
 
@@ -12,6 +13,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [productToEdit, setProductToEdit] = useState(null);
+  const [productToDelete, setProductToDelete] = useState(null);
   const visibleProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.trim().toLowerCase()),
   );
@@ -29,6 +31,11 @@ function App() {
     setProductToEdit(null);
   }
 
+  function handleDeleteProduct() {
+    setProducts((currentProducts) => currentProducts.filter((product) => product.id !== productToDelete.id));
+    setProductToDelete(null);
+  }
+
   return (
     <main className="page-container">
       <Header onAddProduct={() => setIsAddModalOpen(true)} />
@@ -36,7 +43,7 @@ function App() {
         <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm} />
         <p className="count-label">{products.length} produk</p>
       </div>
-      <ProductList products={visibleProducts} onEdit={setProductToEdit} />
+      <ProductList products={visibleProducts} onEdit={setProductToEdit} onDelete={setProductToDelete} />
       <p className="page-summary">Menampilkan {visibleProducts.length} dari {products.length} produk</p>
       {isAddModalOpen && (
         <AddProductModal
@@ -49,6 +56,13 @@ function App() {
           product={productToEdit}
           onClose={() => setProductToEdit(null)}
           onSave={handleEditProduct}
+        />
+      )}
+      {productToDelete && (
+        <DeleteProductModal
+          product={productToDelete}
+          onClose={() => setProductToDelete(null)}
+          onConfirm={handleDeleteProduct}
         />
       )}
     </main>
