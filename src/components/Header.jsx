@@ -1,4 +1,4 @@
-function Header() {
+function Header({ onAddProduct }) {
   return (
     <header className="page-header">
       <div>
@@ -6,7 +6,7 @@ function Header() {
         <h1>Manajemen Produk</h1>
         <p>Kelola daftar produk dan harga dalam satu tempat.</p>
       </div>
-      <button className="button button-primary" type="button">
+      <button className="button button-primary" onClick={onAddProduct} type="button">
         <span aria-hidden="true">+</span> Tambah Produk
       </button>
     </header>
