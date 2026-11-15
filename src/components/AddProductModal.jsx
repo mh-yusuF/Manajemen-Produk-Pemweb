@@ -1,9 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function AddProductModal({ onClose, onSave }) {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    function closeOnEscape(event) {
+      if (event.key === 'Escape') onClose();
+    }
+
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [onClose]);
 
   function handleSubmit(event) {
     event.preventDefault();
