@@ -22,6 +22,14 @@
   letter-spacing: -0.04em;
 }
 
+.eyebrow {
+  margin: 0 0 7px !important;
+  color: #b45b32 !important;
+  font-size: 0.7rem !important;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
 .page-header p {
   margin: 5px 0 0;
   color: #58736b;
