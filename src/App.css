@@ -43,7 +43,19 @@
   background: #fff;
   font: inherit;
   font-weight: 650;
-  cursor: default;
+  cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease, transform 150ms ease;
+}
+
+.button:hover {
+  transform: translateY(-1px);
+}
+
+.button:focus-visible,
+.modal-close:focus-visible,
+.search-box:focus-within {
+  outline: 3px solid rgb(180 91 50 / 30%);
+  outline-offset: 2px;
 }
 
 .button-primary {
@@ -58,6 +70,11 @@
   margin-right: 5px;
   font-size: 1.15rem;
   vertical-align: -1px;
+}
+
+.button-primary:hover {
+  border-color: #105443;
+  background: #105443;
 }
 
 .toolbar {
@@ -337,9 +354,21 @@
   color: #fff;
 }
 
+.empty-state {
+  padding: 40px 20px;
+  border: 1px dashed #c7d5c9;
+  border-radius: 16px;
+  color: #58736b;
+  text-align: center;
+}
+
 @media (max-width: 760px) {
   .page-header {
     padding: 24px;
+  }
+
+  .page-header .button-primary {
+    width: 100%;
   }
 
   .modal-panel {
@@ -353,6 +382,15 @@
 
   .product-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }
 

@@ -1,8 +1,19 @@
+import { useEffect } from 'react';
+
 function formatPrice(price) {
   return `Rp${new Intl.NumberFormat('id-ID').format(price)}`;
 }
 
 function DeleteProductModal({ product, onClose, onConfirm }) {
+  useEffect(() => {
+    function closeOnEscape(event) {
+      if (event.key === 'Escape') onClose();
+    }
+
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [onClose]);
+
   return (
     <div className="modal-backdrop" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
       <section className="modal-panel delete-modal" role="dialog" aria-modal="true" aria-labelledby="delete-product-title">
