@@ -3,6 +3,7 @@ import Header from './components/Header.jsx';
 import SearchBar from './components/SearchBar.jsx';
 import ProductList from './components/ProductList.jsx';
 import AddProductModal from './components/AddProductModal.jsx';
+import EditProductModal from './components/EditProductModal.jsx';
 import initialProducts from './data/products.js';
 import './App.css';
 
@@ -10,6 +11,7 @@ function App() {
   const [products, setProducts] = useState(initialProducts);
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [productToEdit, setProductToEdit] = useState(null);
   const visibleProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.trim().toLowerCase()),
   );
@@ -20,6 +22,13 @@ function App() {
     setIsAddModalOpen(false);
   }
 
+  function handleEditProduct(productDetails) {
+    setProducts((currentProducts) => currentProducts.map((product) =>
+      product.id === productToEdit.id ? { ...product, ...productDetails } : product,
+    ));
+    setProductToEdit(null);
+  }
+
   return (
     <main className="page-container">
       <Header onAddProduct={() => setIsAddModalOpen(true)} />
@@ -27,12 +36,19 @@ function App() {
         <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm} />
         <p className="count-label">{products.length} produk</p>
       </div>
-      <ProductList products={visibleProducts} />
+      <ProductList products={visibleProducts} onEdit={setProductToEdit} />
       <p className="page-summary">Menampilkan {visibleProducts.length} dari {products.length} produk</p>
       {isAddModalOpen && (
         <AddProductModal
           onClose={() => setIsAddModalOpen(false)}
           onSave={handleAddProduct}
+        />
+      )}
+      {productToEdit && (
+        <EditProductModal
+          product={productToEdit}
+          onClose={() => setProductToEdit(null)}
+          onSave={handleEditProduct}
         />
       )}
     </main>
