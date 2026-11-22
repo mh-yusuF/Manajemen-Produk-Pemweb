@@ -170,6 +170,24 @@
   white-space: nowrap;
 }
 
+.product-detail-link {
+  color: #176b57;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration-color: #a5c1ad;
+  text-underline-offset: 3px;
+}
+
+.product-card h2 .product-detail-link {
+  color: inherit;
+  font-size: inherit;
+}
+
+.product-detail-link:hover {
+  color: #105443;
+  text-decoration: underline;
+}
+
 .product-price {
   grid-column: 2;
   grid-row: 1 / span 3;
@@ -187,6 +205,10 @@
   grid-template-columns: 1fr 1fr;
   gap: 9px;
   margin-top: 17px;
+}
+
+.card-actions {
+  margin-top: 12px;
 }
 
 .button-edit {
